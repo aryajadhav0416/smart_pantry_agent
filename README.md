@@ -58,7 +58,7 @@ Managing a modern kitchen is surprisingly complex. We often face these daily str
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/ShubhamRSY/smart_pantry_agent.git](https://github.com/ShubhamRSY/smart_pantry_agent.git)
+git clone [https://github.com/aryajadhav0416/smart_pantry_agent.git](https://github.com/aryajadhav0416/smart_pantry_agent.git)
 cd smart_pantry_agent
 ```
 2. Install Dependencies
