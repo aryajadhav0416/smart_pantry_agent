@@ -1,0 +1,25 @@
+graph TD
+  User([User]) -->|Uploads Receipt Photo| API[API Gateway/FastAPI]
+  User -->|Asks: What can I cook?| API
+
+  subgraph Receipt[Receipt Pipeline]
+    API --> StoreImg[Store Image in Object Storage]
+    StoreImg --> OCR[OCR: Textract/Vision OCR/Tesseract]
+    OCR --> Parse[LLM Extract JSON from OCR Text]
+    Parse --> Normalize[Rules+Fuzzy Match Normalizer]
+    Normalize -->|Low confidence| Resolve[LLM Resolve Item Name]
+    Normalize --> PantryDB[(PostgreSQL Pantry DB)]
+    Resolve --> PantryDB
+  end
+
+  subgraph Planner[Meal Planning Pipeline]
+    API --> PantryFetch[Fetch Pantry Snapshot]
+    API --> Prefs[Fetch Preferences]
+    PantryFetch --> Plan[LLM Meal Planner: 3 recipes + missing items]
+    Prefs --> Plan
+    Plan --> Missing[Missing Ingredients List]
+    Plan --> YT[YouTube Search API]
+    YT --> Videos[Video Links]
+    Missing --> UI[Return to App UI]
+    Videos --> UI
+  end
